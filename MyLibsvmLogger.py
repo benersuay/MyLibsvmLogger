@@ -40,21 +40,34 @@ class MyLibsvmLogger():
         self.log.append(entry)
 
     def save_and_close(self,doPickle=False):
-        logWriter=open(self.fname+self.format,"w");
+        try:
+            logWriter=open(self.fname+self.format,"w");
 
-        for e in self.log:
-            thisEntry = str(int(e[0])) # make sure label is integer
-            for aIdx, a in enumerate(e[1:]):
-                # don't save if the feature is zero
-                if(a != 0.0 or a != 0): 
-                    thisEntry += " "+str(aIdx+1)+":"+str(a)
-            thisEntry += "\n"    
-            logWriter.write(thisEntry)
+            for e in self.log:
+                thisEntry = str(int(e[0])) # make sure label is integer
+                for aIdx, a in enumerate(e[1:]):
+                    # don't save if the feature is zero
+                    if(a != 0.0 or a != 0): 
+                        thisEntry += " "+str(aIdx+1)+":"+str(a)
+                thisEntry += "\n"    
+                logWriter.write(thisEntry)
 
-        logWriter.close()
+            logWriter.close()
+        except Exception, err:
+            print "Error saving file: "+self.fname+self.format
+            print err
 
-        if(doPickle):
-            pickle.dump(self.log, open(self.fname[:-3]+"pickle","wb"))
+
+        try:
+            if(doPickle):
+                pickle.dump(self.log, open(self.fname+".p","wb"))
+        except Exception, err:
+            print "Error pickling file: "+self.fname+".p"
+            print err
 
     def load_from_pickle(self,pickleFileName):
-        self.log = pickle.load(open(pickleFileName,"rb"))
+        try:
+            self.log = pickle.load(open(pickleFileName,"rb"))
+        except Exception, err:
+            print "Error loading file: "+pickleFileName
+            print err

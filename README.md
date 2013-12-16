@@ -1,4 +1,4 @@
-libsvm_logger
+MyLibsvmLogger
 =============
 
 A Python module that can save a 2D array to a txt file in libsvm format.
