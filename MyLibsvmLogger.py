@@ -58,12 +58,12 @@ class MyLibsvmLogger():
             print err
 
 
-        try:
-            if(doPickle):
+        if(doPickle):
+            try:
                 pickle.dump(self.log, open(self.fname+".p","wb"))
-        except Exception, err:
-            print "Error pickling file: "+self.fname+".p"
-            print err
+            except Exception, err:
+                print "Error pickling file: "+self.fname+".p"
+                print err
 
     def load_from_pickle(self,pickleFileName):
         try:
