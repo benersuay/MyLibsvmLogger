@@ -3,6 +3,10 @@ MyLibsvmLogger
 
 A Python module that can save a 2D array to a txt file in libsvm format.
 
+To see the module in action run:
+
+    python demo.py
+
 
 ## Usage ##
 
